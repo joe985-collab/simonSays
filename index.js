@@ -22,7 +22,7 @@ var temp = []
 var body = document.querySelector("body")
 var header = document.querySelector("h1")
 var pg = document.querySelector("p")
-var newSounds = []
+// var newSounds = []
 var track = []
 var diff = 500
 document.addEventListener('keydown',function(event){
@@ -37,14 +37,14 @@ document.addEventListener('keydown',function(event){
     }
     for(let i=level;i<=maxLevel;i++){
       temp.push(newArr[Math.floor(Math.random()*newArr.length)])
-      newSounds.push("sounds/"+temp[i-1].id+".mp3")
+      // newSounds.push("sounds/"+temp[i-1].id+".mp3")
     }
     for(var i = 0; i <1 ; i++){
         (function(i){
             setTimeout(function(){
                 header.innerText = "Level "+(i+1)
                 buttonAnim(temp[i].id)
-                new Audio(newSounds[i]).play()
+                new Audio("sounds/"+temp[i].id+".mp3").play()
             }, 500*(i+1));
         })(i)
     }
@@ -57,6 +57,15 @@ document.addEventListener('keydown',function(event){
 var result = 0
 for(let i=0;i<newArr.length;i++){
   newArr[i].addEventListener('click',function(){
+    function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+    while (currentIndex != 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+    }
+    return array;
+  }
     function addImg(){
       var img = document.createElement("img");
       img.src = "images/troll.jpg";
@@ -97,6 +106,7 @@ for(let i=0;i<newArr.length;i++){
         if(result){
           if(level<maxLevel){
             level++
+            shuffle(temp)
             setTimeout(function(){
               for(var i = 0; i <level; i++){
                   (function(i){
@@ -104,7 +114,7 @@ for(let i=0;i<newArr.length;i++){
                       header.innerText =  lvl
                       setTimeout(function(){
                           buttonAnim(temp[i].id)
-                          new Audio(newSounds[i]).play()
+                          new Audio("sounds/"+temp[i].id+".mp3").play()
                       }, diff*(i+1));
                   })(i)
               }
