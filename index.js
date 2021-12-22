@@ -25,6 +25,33 @@ var pg = document.querySelector("p")
 // var newSounds = []
 var track = []
 var diff = 500
+var inp = document.querySelector("input")
+inp.addEventListener('input',function(e){
+  keydown = e.target.value
+  if(keydown==="w"||keydown==="s"||keydown==="d"){
+    pg.classList.add("hide")
+    if(keydown==="s"){
+      maxLevel = 10
+    }else if(keydown==="d"){
+      maxLevel = 25
+    }
+    for(let i=level;i<=maxLevel;i++){
+      temp.push(newArr[Math.floor(Math.random()*newArr.length)])
+      // newSounds.push("sounds/"+temp[i-1].id+".mp3")
+    }
+    for(var i = 0; i <1 ; i++){
+        (function(i){
+            setTimeout(function(){
+                header.innerText = "Level "+(i+1)
+                buttonAnim(temp[i].id)
+                new Audio("sounds/"+temp[i].id+".mp3").play()
+            }, 500*(i+1));
+        })(i)
+    }
+  }else{
+    console.log(keydown)
+  }
+})
 document.addEventListener('keydown',function(event){
   temp = []
   keydown = event.key;
